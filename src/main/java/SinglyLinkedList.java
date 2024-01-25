@@ -5,6 +5,15 @@ public class SinglyLinkedList<T> {
 
     // Inner Node class.
     public class Node<T> {
+        public T getData() {
+            return Data;
+        }
+
+        public void setData(T data) {
+            Data = data;
+        }
+
+
         // Properties of the Node class.
         // The two properties should be:
         // 1. data (the data stored in the node).
@@ -19,6 +28,13 @@ public class SinglyLinkedList<T> {
             Next = null;
         }
 
+        public Node<T> getNext() {
+            return Next;
+        }
+
+        public void setNext(Node<T> next) {
+            Next = next;
+        }
     }
 
     // Properties of the Singly Linked List class.
@@ -184,23 +200,25 @@ public class SinglyLinkedList<T> {
         return data;
 
     }
+// Methods
 
     // removeAt
-    // Removes a node at a specific index.
-    // Returns the data stored in the removed node.
-    // If the index is equal to 0, then we can invoke the removeFirst method.
-    // If the index is equal to size-1, then we can invoke the removeLast method.
-    // throws an illegal argument exception if the index is invalid.
-
+// Removes a node at a specific index.
+// Returns the data stored in the removed node.
+// If the index is equal to 0, then we can invoke the removeFirst method.
+// If the index is equal to size-1, then we can invoke the removeLast method.
+// throws an illegal argument exception if the index is invalid.
     public T removeAt(int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IllegalArgumentException("Invalid index.");
         }
-        if(index==0){
-            removeFirst();
+
+        if (index == 0) {
+            return removeFirst();
         }
-        if (index==(size=1)){
-            removeLast();
+
+        if (index == size - 1) {
+            return removeLast();
         }
 
         Node<T> currentNode = head;
@@ -217,8 +235,6 @@ public class SinglyLinkedList<T> {
         }
 
         return data;
-
-
     }
 
     // contains
@@ -240,9 +256,11 @@ public class SinglyLinkedList<T> {
     // Returns the data held in the node at a specified index.
     // Throws an illegal argument exception if the index is invalid.
     public T valueAt(int index) {
-
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("Invalid index.");
+        }
         Node<T> currentNode = head;
-        for(int i=1; i<index;i++){
+        for(int i=0; i<index;i++){
             currentNode = currentNode.Next;
         }
 
@@ -275,16 +293,16 @@ public class SinglyLinkedList<T> {
     // Returns a String representation of the Singly Linked List.
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("[");
+
         Node<T> currentNode = head;
         while (currentNode != null) {
             sb.append(currentNode.Data);
             if (currentNode.Next != null) {
-                sb.append(", ");
+                sb.append(" -> ");
             }
             currentNode = currentNode.Next;
         }
-        sb.append("]");
+        sb.append(" -> null");
         return sb.toString();
 
     }
